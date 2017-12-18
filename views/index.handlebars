@@ -1,0 +1,40 @@
+
+<h1>Burger</h1>
+
+<h2>NOT EATEN</h2>
+
+<ul>
+  {{#each burgers}}
+    {{#unless devoured}}
+      <p>{{burger_name}}</p>
+      <button class="devourBtn" type="submit" data-id="{{id}}">Devour {{burger_name}}</button>
+    {{/unless}}
+  {{/each}}
+</ul>
+
+<h2>EATEN</h2>
+
+<ul>
+  {{#each burgers}}
+    {{#if devoured}}
+      <p>{{burger_name}}</p>
+    {{/if}}
+  {{/each}}
+</ul>
+
+<script type="text/javascript">
+$(".devourBtn").on("click", function(event) {
+  event.preventDefault();
+
+  console.log("btn woprl");
+
+  burger = {
+    id: $(this).data("id")
+  }
+
+  $.post( "/", burger, "json").done(function(data) {
+    location.reload(true);
+  })
+
+  })
+</script>
