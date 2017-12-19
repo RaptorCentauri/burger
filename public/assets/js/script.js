@@ -1,19 +1,29 @@
 $(document).ready(function(){
 
-$("#devourBtn").submit(function(event) {
-  event.preventDefault();
+  $(".devourBtn").on("click", function(event) {
+    event.preventDefault();
 
-  console.log("btn woprl");
+    burger = {
+      id: $(this).data("id")
+    }
 
-  burger.devour($(this).data(id), function(res){
-      cb(res);
-    });
-  });
+    $.post( "/api/eatburger", burger, function(data){
+      location.reload();
+    }, "json");
 
-// console.log(newName);
+    })
 
-// $.post( "/api/friends", newName, "json").done(function(data) {
-//   console.log(`Data Loaded: ${data}`);
-// });
 
+  $("#addBurgerBtn").on("click", function(event) {
+    event.preventDefault();
+
+    burger = {
+      burger_name: $("#newBurger").val()
+    }
+
+    $.post( "/api/addburger", burger, function(data){
+      location.reload();
+    }, "json");
+
+    })
 });

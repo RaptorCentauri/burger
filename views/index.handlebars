@@ -1,40 +1,41 @@
+<div class="title-bar">
+  <h1>Burger</h1>
+</div>
 
-<h1>Burger</h1>
+<div class="wrapper">
+  <div id="not-eaten-div">
 
-<h2>NOT EATEN</h2>
+    <h2>NOT EATEN</h2>
 
-<ul>
-  {{#each burgers}}
-    {{#unless devoured}}
+    <ul>
+      {{#each burgers}}
+      {{#unless devoured}}
+      <div class="burgerRow">
+      <div class="burgerName">
       <p>{{burger_name}}</p>
-      <button class="devourBtn" type="submit" data-id="{{id}}">Devour {{burger_name}}</button>
-    {{/unless}}
-  {{/each}}
-</ul>
-
-<h2>EATEN</h2>
-
-<ul>
-  {{#each burgers}}
+      </div>
+        <button class="devourBtn" type="submit" data-id="{{id}}">DEVOUR!</button>
+      </div>
+      {{/unless}}
+      {{/each}}
+    </ul>
+    
+  </div>
+  <div id="add-div">
+    <h2>Add A burger</h2>
+    <input type="text" id="newBurger">
+    <button id="addBurgerBtn" type="submit">Add Burger!</button>
+  </div>
+    <div id="eaten-div">
+    <h2>EATEN</h2>
+    <ul>
+    {{#each burgers}}
     {{#if devoured}}
-      <p>{{burger_name}}</p>
+    <div class="burgerName">
+    <p>{{burger_name}}</p>
+    </div>
     {{/if}}
-  {{/each}}
-</ul>
-
-<script type="text/javascript">
-$(".devourBtn").on("click", function(event) {
-  event.preventDefault();
-
-  console.log("btn woprl");
-
-  burger = {
-    id: $(this).data("id")
-  }
-
-  $.post( "/", burger, "json").done(function(data) {
-    location.reload(true);
-  })
-
-  })
-</script>
+    {{/each}}
+    </ul>
+  </div>
+</div>

@@ -3,8 +3,7 @@ const connection = require('./connection.js');
 let tableName = 'burgers';
 
 orm = {
-  // selectAll
-  selectAll: function(tableInput, cb){
+  selectAll: function(tableName, cb){
 
     let queryString = `SELECT * FROM ${tableName}`;
 
@@ -16,25 +15,19 @@ orm = {
     });
   },
 
-  // insertOne: function(callback){
-  //
-  //   let query = `INSERT INTO ${tableName} VALUES `
-  //
-  //   connection.query(query, function(err, result){
-  //     callback(result);
-  //   });
-  // },
+  insertOne: function(tableName, column, value, cb){
 
-  // updateOne: function(callback){
-  //
-  //   let query = //some sql querry;
-  //
-  //   connection.query(query, function(err, result){
-  //     callback(result);
-  //   });
-  // },
+    let queryString = `INSERT INTO ${tableName} (${column}) VALUES ('${value}')`
 
-  updateOne: function(tableInput, column, id, cb){
+    connection.query(queryString, function(err, result){
+      if (err){
+        throw err;
+      }
+      cb(result);
+    });
+  },
+
+  updateOne: function(tableName, column, id, cb){
 
     let queryString = `UPDATE ${tableName} SET ${column} = 1 WHERE id=${id}`;
 
@@ -45,9 +38,6 @@ orm = {
         cb(result);
     });
   },
-
-
-
 }
 
 module.exports = orm;
